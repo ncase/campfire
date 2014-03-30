@@ -1,0 +1,74 @@
+body{
+	margin:0;
+	background: #eee;
+	font-family: sans-serif;
+	font-size: 18px;
+	font-weight: 100;
+}
+#scene{
+	width:600px; height:600px;
+	top:0;left:0;right:0;bottom:0;
+	margin:auto;
+	position: absolute;
+	background: #fff;
+}
+#scene #passage{
+	padding: 25px;
+	width:550px; height:500px;
+}
+#scene #editor{
+	display: none;
+}
+#scene #editor #editor_text{
+	padding: 25px;
+	width:550px; height:500px;
+	border:0;
+	font-size: 16px;
+	font-family: monospace;
+}
+#scene[edit=yes] #passage{
+	display: none;
+}
+#scene[edit=yes] #editor{
+	display: block;
+}
+#scene #footer{
+	position: absolute;
+	bottom: 0;
+	width:600px; height:50px;
+	text-align: right;
+	background: #000;
+	color:#fff;
+	overflow: hidden;
+}
+#scene #footer #game_state{
+	padding:15px;
+	letter-spacing: 5px;
+}
+#scene #footer .footer_button{
+	float:right;
+	padding:15px;
+	border-left:1px solid #666;
+	color:#666;
+	cursor: pointer;
+}
+#scene #footer .footer_button:hover{
+	background: #666;
+	color:#fff;
+}
+#scene #footer .edit{ display: none; }
+#scene #footer .back{ display: none; }
+#scene[edit=yes] #footer .play{ display: none; }
+#scene[edit=yes] #footer .edit{ display: block; }
+#scene[edit=yes][export=yes] #footer .play{ display: none; }
+#scene[edit=yes][export=yes] #footer .edit{ display: none; }
+#scene[edit=yes][export=yes] #footer .back{ display: block; }
+
+a{
+	text-decoration: underline;
+	cursor: pointer;
+	color: #cc2727;
+}
+a:hover{
+	color: #ee3939;
+}

@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<link rel="stylesheet" type="text/css" href="css/index.css">
+	</head>
+	<body>
+		<div id="scene" edit="false">
+			<div id="passage"></div>
+			<div id="editor">
+				<textarea id="editor_text"></textarea>
+			</div>
+			<div id="footer">
+
+				<div style="float:left" id="game_state">PLAYING</div>
+
+				<div class="footer_button play" onclick="startEdit()">Edit Scene</div>
+				<div class="footer_button play" onclick="restartStory()">Restart Story</div>
+
+				<div class="footer_button edit" onclick="saveScene(); stopEdit()">Play Scene</div>
+				<!--div class="footer_button edit" onclick="">See All Scenes</div-->
+				<div class="footer_button edit" onclick="saveScene(); showSource()">Export/Import</div>
+
+				<div class="footer_button back" onclick="backToStory()">Back To Story</div>
+
+			</div>
+		</div>
+	</body>
+</html>
+
+<script>
+var Game = {
+    "scenes": {
+        "Start": {
+            "markdown": "**==== COMING OUT SIMULATOR 2014 (draft v0.0) ====**\n\nSo, you're planning on finally coming out to your parents. Not so fast! It might not yet be the right time for you, but when it is, it's always a tough conversation to have. So before you do that, let's practice with this *totally 100% accurate* simulation.\n\nKnow The Outcome When You Come Out!&trade;\n\n[Start Simulation >>]('Start 2')"
+        },
+        "Start 2": {
+            "markdown": "**Please pick a difficulty mode:**\n\n**[EASY]('Start Easy')**    \n*Genderqueer pansexual? Cool beans. Now do your homework.*\n\n**MEDIUM** (coming soon)    \n*Lesbian? Doesn't that hurt?*\n\n**HARD** (coming soon)    \n*I HAVE NO SON. OR DAUGHTER. OR WHATEVER YOU ARE.*"
+        },
+        "Start Easy": {
+            "markdown": "**You picked: EASY MODE**\n\nYour palms haven't been this sweaty since your first kiss. Your first, fabulous, non-heteronormative kiss. You've been meaning to tell your parents for a while now, but you were just too scared. You still are. So, here goes nothing. You walk into the living room, seeing your parents chatting on the couch. You interrupt.\n\n*Mom, other Mom... I have something to tell you. I'm...*\n\n\\> [lesbian]('Easy - Lesbian')    \n\\> [gay]('Easy - Gay')    \n\\> [bisexual]('Easy - Bisexual')    \n\\> [transgender]('Easy - Transgender')    \n\\> [straight]('Easy - Straight')    \n\\> [uh... hungry. Yeah. I'm hungry.]('Easy - Hungry')   \n"
+        },
+        "Start Medium": {
+            "markdown": "Medium\n\n"
+        },
+        "Start Hard": {
+            "markdown": "Hard\n\nDad... I have someth--    \nThis better not be another one of your queer questions.\n\n"
+        },
+        "Easy - Lesbian": {
+            "markdown": "*...I'm lesbian.*\n\nMoms #1 and #2 pause for a while, look at you, then at each other, then back at you, then #1 looks at #2 looking at you, then back at each other, and finally #2 says...\n\n\"Huh. What a coincidence. So are we.\"\n\n\\> [Oh. Thank you for coming out to me.]('Easy - Lesbian - 1')    \n\\> [SAY WHAAAAAAA? MIND *BLOWN*.]('Easy - Lesbian - 2')"
+        },
+        "Easy - Gay": {
+            "markdown": "*...I'm gay.*\n\nThat's when the Elton John music starts. Mom #1 throws rainbow-coloured confetti into the air, as balloons drift gaily downwards from the ceiling. Also, your pants have disappeared.\n\nMom #1 has the cheekiest look on her face. Mom #2 just rolls her eyes, pulls out a Benny Franklin, and hands it over to Mom #1, saying, \"Yeah, yeah, you were right.\"\n\n\\> [Wait, you knew?]('Easy - Gay - 1')    \n\\> [This might be the most fabulous day of my life.]('Easy - Gay - 2')\n\n"
+        },
+        "Easy - Bisexual": {
+            "markdown": "*...I'm bisexual.*\n\nMom #2's mouth slowly turns upwards into the cheeky grin you're unfortunately very familiar with. She says to you, \"And I thought...\"\n\n*no mom no*\n\n\"...that all this time...\"\n\n*don't say it mom*\n\n\"...that you were...\"\n\n*seriously nooooooo*\n\n\"...a picky eater.\"\n\n\\> [mooooOOOOOOOOmmmmm]('Easy - Bisexual - 1')    \n\\> [Mom #1, help me out here?]('Easy - Bisexual - 2')"
+        },
+        "Easy - Transgender": {
+            "markdown": "...*I'm transgender*.\n\nSuddenly, the author of this story realized they hadn't asked you what gender you were transitioning *from*, let alone transitioning *to*.\n\nThe fourth wall collapsed, and you ceased to exist.\n\nIf it's any consolation, I've seen worse reactions to coming out.\n\n**THE END**\n\n[continue >>]('End')"
+        },
+        "Easy - Straight": {
+            "markdown": "*...I'm straight.*\n\nMom #1 looks annoyed. Actually, more than annoyed. She's positively pissed. \"Do you think this is a game? What 'funny' ending do you want? Do you think the *shit* that queer people put up with is *funny*? You want me to, ha ha, pretend that I would be disappointed if you turned out straight?...\"\n\n\\> [Okay, jeez, I'm sorry.]('Easy - Straight - 1')    \n\\> [But... I really *am* straight.]('Easy - Straight - 2')"
+        },
+        "Easy - Complicated": {
+            "markdown": "Hungry... for *same-sex genitals?!*"
+        },
+        "Easy - Hungry": {
+            "markdown": "*...I'm hungry.*\n\n\"Hungry,\" said one of your moms, \"for SAME-SEX GENITALIA?!\"\n\n\\> [Why yes, I'd love to eat same-sex genitalia!]('Easy - Hungry - Yes')    \n\\> [What?! No... just... never mind.]('Easy - Hungry - No')\n\n"
+        },
+        "Easy - Lesbian - 2": {
+            "markdown": "*Say WHAAAAAAAA? Mind BL--*\n\n**five hours later**\n\nDenny sniffs the air. It smells like rust and shocked surprise. He picks up his mop and bucket, walks into the house, and closes the door behind him, shutting out the sounds of two women sobbing uncontrollably.\n\nThat's when Denny sees it.    \nThat's when Denny sees you.\n\nA young girl's body crumpled on the floor, with her brains painting the far wall. Some of it even got on the ceiling. Stepping closer, Denny sees your face, frozen in an eternal, silent scream.\n\n\":O\"\n\n**THE END**\n\n[continue >>]('End')"
+        },
+        "End": {
+            "markdown": "**Epilogue**\n\nEveryone keeps talking about coming out, the benefits of doing so, and that it's a huge milestone in accepting who you are. And it's great we encourage people to come out! But few people talk about legitimate reasons *not* to come out, at least not just yet.\n\nComing out to my parent was one of the worst mistakes I ever made. But you know what? I don't regret it at all. Despite all the guilt and shaming they put me through, I still had friends who supported me, and I knew there were millions of people like me out there.\n\nIf any of this relates to you, I just want you to know:    \n*You're not alone. We're here for you.*\n\nLove,    \n~ Nicky Case \n\n[play again >>]('Start 2')"
+        },
+        "Easy - Gay - 2": {
+            "markdown": "*This might be the most fabulous day of my life.*\n\nYou hear the front door opening behind you. You spin around. The Chippendale dancers have arrived.\n\n*This **is** the most fabulous day of my life.*\n\n**THE END**\n\n[continue >>]('End')"
+        },
+        "Easy - Lesbian - 1": {
+            "markdown": "*...Oh. Thank you for coming out to me.*\n\nYou give your moms a hug. \"I'm happy to hear you've discovered who you are, and I'm honoured that you're confiding in me something so personal.\"\n\nMom #2 whispers with watery eyes. \"*I was afraid you wouldn't accept me.*\" You hug tighter. \"Mom, sweetie, of course I'll always love you. You're family. You're always welcome in your own home.\"\n\nNobody says anything for a while.    \nNothing else needs to be said.    \n\nEverything is okay.\n\n**THE END**\n\n[continue >>]('End')"
+        },
+        "Easy - Gay - 1": {
+            "markdown": "*...Wait, you knew?*\n\n\"Honey,\" Mom #1 says, \"of course we knew. You're our son. A son we conceived by deliberately picking the gayest men as sperm donors for my in-vitro fertilization. We'd have been disappointed if you *didn't* turn out gay.\"\n\nMom #2 chimes in. \"I was betting on you turning out bi.\"\n\n**THE END**\n\n[continue >>]('End')"
+        },
+        "Easy - Bisexual - 2": {
+            "markdown": "*...Mom #1, help me out here?*\n\nMom #1 stares blankly at you. \"Hey, some nights you feel like having pork, some nights you feel like having tuna.\"\n\n*MmmmooOOOOOOOmmmmssssssssss!*\n\n**THE END**\n\n[continue >>]('End')"
+        },
+        "Easy - Bisexual - 1": {
+            "markdown": "*mooooOOOOOOOOmmmmm*\n\nDespite your pseudo-whining, you appreciate that they really do care about you. Sure, you're embarrassed, but of all reasons to be ashamed for coming out, this is one of the far better ones. Besides, who doesn't like a dirty joke once in a while.\n\n\"...now would you like sausage or clams for dinner?\"\n\nOkay, too far.\n\n**THE END**\n\n[continue >>]('End')\n\n"
+        },
+        "Easy - Straight - 1": {
+            "markdown": "*Okay, jeez, I'm--*\n\n\"...Because that's a different ending for this game. Pick 'Easy', then 'I'm Gay', then 'Wait, you knew?' for the ending where I pretend to be disappointed if you turned out straight.\"\n\n*Wait, what.*\n\nMom #2 butts in. \"Don't do that ending. I lose $100 in that one.\"\n\n*Is the fourth wall collapsing going to kill me?*\n\n\"Oh, no no,\" Mom #1 says, \"that's the Transgender ending.\"\n\n**THE END(?!)**\n\n[continue >>]('End')"
+        },
+        "Easy - Straight - 2": {
+            "markdown": "*But I re--*\n\n\"...Because that's a different ending for this game. Pick 'Easy', then 'I'm Gay', then 'Wait, you knew?' for the ending where I pretend to be disappointed if you turned out straight.\"\n\n*Wait, what.*\n\nMom #2 speaks up. \"Don't do that ending. I lose $100 in that one.\"\n\n*Is the fourth wall collapsing going to kill me?*\n\n\"Oh, no no,\" Mom #1 says, \"that's the Transgender ending.\"\n\n**THE END(?!)**\n\n[continue >>]('End')"
+        },
+        "Easy - Hungry - Yes": {
+            "markdown": "*Why yes, I'd love to eat same-sex genitalia!*\n\nYeah, I'm not writing this ending.\n\nHopefully you understand. My only options here to write an ending that's sexually explicit, cannibalistic, or both.\n\nLet your Imagination&trade; do the work.\n\n**THE END**\n\n[continue >>]('End')"
+        },
+        "Easy - Hungry - No": {
+            "markdown": "*What?! No... just... never mind.*\n\nYou quickly scurry back to your room, not even stopping to see the disappointed look on your mothers' faces. They thought you had finally discovered and accepted who you are, that you had overcome the internalized guilt of being 'different' from the others.\n\nBut they won't force you. They know you need time. And that's okay. Even if your parents are the most understanding people in the world, if you're still not ready to come out yet, you don't have to come out yet. It's okay! It's okay...\n\nSame-sex genitalia can wait for another day.\n\n**THE END**\n\n[continue >>]('End')"
+        }
+    }
+};
+</script>
+
+<script src="js/underscore-min.js"></script>
+<script src="js/showdown.js"></script>
+<script src="js/campfire.js"></script>
